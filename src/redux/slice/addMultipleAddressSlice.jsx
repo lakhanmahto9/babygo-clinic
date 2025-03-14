@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   addClinicInfoApi,
-  editDoctorMultipleAddressApi,
-  getDoctorMultipleAddressApi,
+  editClinicInfoApi,
+  getMultipleClinicInfo,
 } from "../apis/api";
 
 export const AddClinicInfo = createAsyncThunk(
-  "addclincinfo",
+  "apointmentaddress/addclincinfo",
   async (payload, thunkAPI) => {
     try {
       const data = await addClinicInfoApi(payload);
@@ -19,11 +19,11 @@ export const AddClinicInfo = createAsyncThunk(
   }
 );
 
-export const getApointAddress = createAsyncThunk(
-  "getapointmentaddress",
+export const GetClinicInfo = createAsyncThunk(
+  "apointmentaddress/getapointmentaddress",
   async (_, thunkAPI) => {
     try {
-      const data = await getDoctorMultipleAddressApi();
+      const data = await getMultipleClinicInfo();
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(
@@ -33,15 +33,15 @@ export const getApointAddress = createAsyncThunk(
   }
 );
 
-export const editApointAddress = createAsyncThunk(
-  "editapointmentaddress",
+export const EditClinicInfo = createAsyncThunk(
+  "apointmentaddress/editapointmentaddress",
   async (payload, thunkAPI) => {
     try {
-      const data = await editDoctorMultipleAddressApi(payload);
+      const data = await editClinicInfoApi(payload);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(
-        error.response?.data || { message: "Address update failed" }
+        error.response?.data || { message: "Clinic update failed" }
       );
     }
   }
@@ -57,16 +57,16 @@ const multipleAddressSlice = createSlice({
   extraReducers: (builder) => {
     builder
       //fetch
-      .addCase(getApointAddress.pending, (state) => {
+      .addCase(GetClinicInfo.pending, (state) => {
         state.status = "loading";
         state.error = null;
       })
-      .addCase(getApointAddress.fulfilled, (state, action) => {
+      .addCase(GetClinicInfo.fulfilled, (state, action) => {
         state.status = "succeeded";
         console.log(action.payload.data.data);
         state.address = action.payload.data.data;
       })
-      .addCase(getApointAddress.rejected, (state, action) => {
+      .addCase(GetClinicInfo.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       })
@@ -84,11 +84,11 @@ const multipleAddressSlice = createSlice({
         state.error = action.payload;
       })
       //update
-      .addCase(editApointAddress.pending, (state) => {
+      .addCase(EditClinicInfo.pending, (state) => {
         state.status = "loading";
         state.error = null;
       })
-      .addCase(editApointAddress.fulfilled, (state, action) => {
+      .addCase(EditClinicInfo.fulfilled, (state, action) => {
         state.status = "succeeded";
         const index = state.address.findIndex(
           (item) => item._id === action.payload.data.data._id
@@ -98,7 +98,7 @@ const multipleAddressSlice = createSlice({
           state.address[index] = action.payload.data.data;
         }
       })
-      .addCase(editApointAddress.rejected, (state, action) => {
+      .addCase(EditClinicInfo.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       });

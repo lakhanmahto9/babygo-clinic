@@ -64,9 +64,9 @@ const Profile = ({ children }) => {
               </div>
               <div className="p-1 w-full">
                 <div
-                  onClick={()=>pageswithc("/profile/degree-and-certification")}
+                  onClick={()=>pageswithc("/profile/add-doctor")}
                   className={`w-full h-10 flex justify-center items-center 
-                    ${pathname === "/profile/degree-and-certification"
+                    ${pathname === "/profile/add-doctor"
                       ? isDarkEnabled 
                         ? "bg-[#040836]"  // Dark mode background color
                         : "bg-[#006afe]"  // Light mode background color

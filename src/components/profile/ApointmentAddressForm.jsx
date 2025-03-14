@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import { AddIcon, VerticalThreeDotIcon } from "../../assets/icons/Icons";
 import ApointmentForm from "./ApointmentForm";
 import { useDispatch, useSelector } from "react-redux";
-import { getApointAddress } from "../../redux/slice/addMultipleAddressSlice";
+import { GetClinicInfo } from "../../redux/slice/addMultipleAddressSlice";
 import { Button, Menu, MenuItem } from "@mui/material";
 import EditApointmentAddress from "./EditApointmentAddress";
 import { useThemeColors } from "../../utils/useThemeColor";
@@ -11,8 +11,8 @@ import { useThemeColors } from "../../utils/useThemeColor";
 const ApointmentAddressForm = () => {
   const isDarkEnabled = useSelector((state) => state.darkmode.dark);
   const colors = useThemeColors(isDarkEnabled)
-  const apointmentaddress = useSelector(
-    (state) => state.apointmentaddress?.address || []
+  const clinicinfo = useSelector(
+    (state) => state.clinicinfo?.address || []
   );
   const dispatch = useDispatch();
   const [menuAnchor, setMenuAnchor] = useState({ id: null, anchor: null });
@@ -23,7 +23,7 @@ const ApointmentAddressForm = () => {
   };
 
   useEffect(() => {
-    dispatch(getApointAddress());
+    dispatch(GetClinicInfo());
   }, [dispatch]);
 
   const handleMenuClick = (event, id) => {
@@ -63,7 +63,7 @@ const ApointmentAddressForm = () => {
         </div>
         <div className="p-4">
           <div className={`border ${isDarkEnabled ? "border-gray-600" :""}`}>
-            {apointmentaddress.map((item, index) =>
+            {clinicinfo.map((item, index) =>
               selectedId !== item._id ? (
                 <div className={`w-full flex p-4 border-b ${isDarkEnabled ? "border-gray-600" : ""}`} key={index}>
                   <div className="w-4/5">

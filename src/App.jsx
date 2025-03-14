@@ -8,11 +8,11 @@ import IsAuthenticated from "./components/middleware/IsAuthenticated";
 import Pagenotfound from "./components/apointment/Pagenotfound";
 import Login from "./components/credentials/Login";
 import Signup from "./components/credentials/Signup";
-import Degree from "./components/profile/Degree";
 import Addbank from "./components/bank/Addbank";
 import Addupi from "./components/bank/Addupi";
 import WithdrawalHistory from "./components/bank/WithdrawalHistory";
 import Wallet from "./components/bank/Wallet";
+import Doctor from "./components/profile/Doctor";
 
 function App() {
   return (
@@ -38,10 +38,10 @@ function App() {
           }
         />
         <Route
-          path="/profile/degree-and-certification"
+          path="/profile/add-doctor"
           element={
             <IsAuthenticated>
-              <Degree />
+              <Doctor />
             </IsAuthenticated>
           }
         />

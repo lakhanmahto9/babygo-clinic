@@ -10,6 +10,7 @@ const ApointmentForm = ({ closeAddressForm }) => {
   const dispatch = useDispatch();
   const isDarkEnabled = useSelector((state) => state.darkmode.dark);
   const colors = useThemeColors(isDarkEnabled);
+  const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState({
     email: "",
     clinicReg: "",
@@ -47,6 +48,9 @@ const ApointmentForm = ({ closeAddressForm }) => {
       setSpin(false);
       console.log(error);
     }
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
   return (
     <div
@@ -244,7 +248,7 @@ const ApointmentForm = ({ closeAddressForm }) => {
             />
           </div>
         </div>
-        <div className="w-1/2 rounded-md h-12 bg-blue-500 flex justify-center items-center gap-2">
+        <div className="w-full sm:w-1/2 rounded-md h-12 bg-blue-500 flex justify-center items-center gap-2">
           <LocationIcon color="white" width="18" hieght="18" />{" "}
           <p className="text-white"> Use current location</p>
         </div>

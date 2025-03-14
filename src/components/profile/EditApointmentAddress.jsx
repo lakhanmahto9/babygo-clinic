@@ -2,34 +2,27 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { CircularProgress } from "@mui/material";
-import { editApointAddress } from "../../redux/slice/addMultipleAddressSlice";
+import { EditClinicInfo } from "../../redux/slice/addMultipleAddressSlice";
 import { useThemeColors } from "../../utils/useThemeColor";
+import { LocationIcon } from "../../assets/icons/Icons";
+import ConfirmModal from "./confirm/ConfirmModal";
 
 const EditApointmentAddress = ({ id, editaddress, closeEditAddressForm }) => {
-  const dispatch = useDispatch();
   const isDarkEnabled = useSelector((state) => state.darkmode.dark);
   const colors = useThemeColors(isDarkEnabled);
-  //   const formatDateTimeLocal = (dateString) => {
-  //     if (!dateString) return "";
-  //     const date = new Date(dateString);
-  //     const localDate = new Date(date.getTime());
-  //     return localDate.toISOString().slice(0, 16);
-  //   };
+  const [open, setOpen] = useState(false);
+  const [data, setData] = useState({});
   const [inputValue, setInputValue] = useState({
-    name: editaddress.name || "",
+    email: editaddress.email || "",
+    clinicReg: editaddress.clinicReg || "",
     phone: editaddress.phone || "",
-    startTime: editaddress.startTime || "",
-    endTime: editaddress.endTime || "",
     clinicName: editaddress.clinicName || "",
     zipCode: editaddress.zipCode || "",
     locality: editaddress.locality || "",
-    limitUser: editaddress.limitUser || "",
     address: editaddress.address || "",
     city: editaddress.city || "",
     state: editaddress.state || "",
   });
-
-  const [spin, setSpin] = useState(false);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputValue((prev) => ({
@@ -40,28 +33,22 @@ const EditApointmentAddress = ({ id, editaddress, closeEditAddressForm }) => {
 
   const hadleSubmitForm = async (e) => {
     e.preventDefault();
-    setSpin(true);
-    let data = {
+    let updatedData = {
       id: id,
       item: inputValue,
     };
-    try {
-      const result = await dispatch(editApointAddress(data));
-      if (result?.payload?.data?.success) {
-        setSpin(false);
-        toast.success(result.payload.data.message);
-        closeEditAddressForm();
-      } else {
-        setSpin(false);
-        toast.warning(result.payload.message);
-      }
-    } catch (error) {
-      setSpin(false);
-      console.log(error);
-    }
+    setData(updatedData)
+    setOpen(true);
+    
   };
+  const handleClose = ()=>{
+    setOpen(false);
+    closeEditAddressForm();
+  }
   return (
-    <div className={`w-full h-auto sm:p-4  ${isDarkEnabled ? "" : "sm:border"}`}>
+    <div
+      className={`w-full h-auto sm:p-4  ${isDarkEnabled ? "" : "sm:border"}`}
+    >
       <p className="font-semibold text-sm">EDIT ADDRESS</p>
       <form
         onSubmit={hadleSubmitForm}
@@ -69,73 +56,8 @@ const EditApointmentAddress = ({ id, editaddress, closeEditAddressForm }) => {
       >
         <div className="w-full flex flex-col sm:flex-row gap-4">
           <div className="w-full sm:w-1/2 flex flex-col">
-            <label htmlFor="name" className="text-slate-400 text-sm">
-              Full Name
-            </label>
-            <input
-              id="name"
-              type="text"
-              name="name"
-              value={inputValue.name}
-              onChange={handleInputChange}
-              placeholder="Full name"
-              className={`outline-none h-12 w-full rounded-md px-2  ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-400"}`}
-              style={{ background: colors.primary }}
-            />
-          </div>
-          <div className="w-full sm:w-1/2 flex flex-col">
-            <label htmlFor="phone" className="text-slate-400 text-sm">
-              Phone Number
-            </label>
-            <input
-              id="phone"
-              name="phone"
-              value={inputValue.phone}
-              onChange={handleInputChange}
-              type="text"
-              placeholder="10 digit phone number"
-              className={`outline-none  h-12 w-full rounded-md px-2  ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-400"}`}
-
-              style={{ background: colors.primary }}
-            />
-          </div>
-        </div>
-        <div className="flex flex-col sm:flex-row w-full gap-4">
-          <div className="w-full sm:w-1/2 flex flex-col">
-            <label htmlFor="start" className="text-slate-400 text-sm">
-              Visiting Start Time
-            </label>
-            <input
-              id="start"
-              name="startTime"
-              value={inputValue.startTime}
-              onChange={handleInputChange}
-              type="time"
-              className={`outline-none  h-12 w-full rounded-md px-2  ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-400"}`}
-
-              style={{ background: colors.primary }}
-            />
-          </div>
-          <div className="w-full sm:w-1/2 flex flex-col">
-            <label htmlFor="end" className="text-slate-400 text-sm">
-              Visiting End Time
-            </label>
-            <input
-              id="end"
-              name="endTime"
-              value={inputValue.endTime}
-              onChange={handleInputChange}
-              type="time"
-              className={`outline-none  h-12 w-full rounded-md px-2  ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-400"}`}
-
-              style={{ background: colors.primary }}
-            />
-          </div>
-        </div>
-        <div className="w-full flex flex-col sm:flex-row gap-4">
-          <div className="w-full sm:w-1/2 flex flex-col">
             <label htmlFor="clinic" className="text-slate-400 text-sm">
-              Clinic Name
+              Clinic Name*
             </label>
             <input
               id="clinic"
@@ -144,14 +66,81 @@ const EditApointmentAddress = ({ id, editaddress, closeEditAddressForm }) => {
               value={inputValue.clinicName}
               onChange={handleInputChange}
               placeholder="Enter your clinic name"
-              className={`outline-none  h-12 w-full rounded-md px-2  ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-400"}`}
-
-              style={{ background: colors.primary }}
+              className={`outline-none h-12 w-full rounded-md px-2  ${
+                isDarkEnabled
+                  ? "border border-gray-600"
+                  : "border-2 border-slate-400"
+              }`}
+              style={{ background: colors.background }}
+              required
             />
           </div>
           <div className="w-full sm:w-1/2 flex flex-col">
+            <label htmlFor="phone" className="text-slate-400 text-sm">
+              Phone Number*
+            </label>
+            <input
+              id="phone"
+              name="phone"
+              value={inputValue.phone}
+              onChange={handleInputChange}
+              type="text"
+              placeholder="10 digit phone number"
+              className={`outline-none h-12 w-full rounded-md px-2  ${
+                isDarkEnabled
+                  ? "border border-gray-600"
+                  : "border-2 border-slate-400"
+              }`}
+              style={{ background: colors.background }}
+              required
+            />
+          </div>
+        </div>
+
+        <div className="w-full flex flex-col sm:flex-row gap-4">
+          <div className="w-full sm:w-1/2 flex flex-col">
+            <label htmlFor="clinic" className="text-slate-400 text-sm">
+              Email <small>(Optional)</small>
+            </label>
+            <input
+              id="clinic"
+              type="email"
+              name="email"
+              value={inputValue.email}
+              onChange={handleInputChange}
+              placeholder="Enter your email"
+              className={`outline-none h-12 w-full rounded-md px-2  ${
+                isDarkEnabled
+                  ? "border border-gray-600"
+                  : "border-2 border-slate-400"
+              }`}
+              style={{ background: colors.background }}
+            />
+          </div>
+          <div className="w-full sm:w-1/2 flex flex-col">
+            <label htmlFor="reg" className="text-slate-400 text-sm">
+              Clinic Registration Link <small>(Optional)</small>
+            </label>
+            <input
+              id="reg"
+              type="text"
+              name="clinicReg"
+              value={inputValue.clinicReg}
+              onChange={handleInputChange}
+              placeholder="Enter link"
+              className={`outline-none h-12 w-full rounded-md px-2  ${
+                isDarkEnabled
+                  ? "border border-gray-600"
+                  : "border-2 border-slate-400"
+              }`}
+              style={{ background: colors.background }}
+            />
+          </div>
+        </div>
+        <div className="w-full flex flex-col sm:flex-row gap-4">
+          <div className="w-full sm:w-1/2 flex flex-col">
             <label htmlFor="pin" className="text-slate-400 text-sm">
-              PIN Code
+              PIN Code*
             </label>
             <input
               id="pin"
@@ -160,16 +149,18 @@ const EditApointmentAddress = ({ id, editaddress, closeEditAddressForm }) => {
               onChange={handleInputChange}
               type="text"
               placeholder="PIN Code"
-              className={`outline-none  h-12 w-full rounded-md px-2  ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-400"}`}
-
-              style={{ background: colors.primary }}
+              className={`outline-none h-12 w-full rounded-md px-2  ${
+                isDarkEnabled
+                  ? "border border-gray-600"
+                  : "border-2 border-slate-400"
+              }`}
+              style={{ background: colors.background }}
+              required
             />
           </div>
-        </div>
-        <div className="w-full flex flex-col sm:flex-row gap-4">
           <div className="w-full sm:w-1/2 flex flex-col">
             <label htmlFor="locality" className="text-slate-400 text-sm">
-              Locality
+              Locality*
             </label>
             <input
               id="locality"
@@ -178,44 +169,38 @@ const EditApointmentAddress = ({ id, editaddress, closeEditAddressForm }) => {
               onChange={handleInputChange}
               type="text"
               placeholder="Locality"
-              className={`outline-none  h-12 w-full rounded-md px-2  ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-400"}`}
-
-              style={{ background: colors.primary }}
-            />
-          </div>
-          <div className="w-full sm:w-1/2 flex flex-col">
-            <label htmlFor="limit" className="text-slate-400 text-sm">
-              Visiting Limit
-            </label>
-            <input
-              id="limit"
-              name="limitUser"
-              value={inputValue.limitUser}
-              onChange={handleInputChange}
-              type="text"
-              placeholder="Enter number of visiting"
-              className={`outline-none  h-12 w-full rounded-md px-2  ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-400"}`}
-              style={{ background: colors.primary }}
+              className={`outline-none h-12 w-full rounded-md px-2  ${
+                isDarkEnabled
+                  ? "border border-gray-600"
+                  : "border-2 border-slate-400"
+              }`}
+              style={{ background: colors.background }}
+              required
             />
           </div>
         </div>
         <div className="w-full">
           <label htmlFor="address" className="text-slate-400 text-sm">
-            Address (Area and Street)
+            Address (Area and Street)*
           </label>
           <textarea
             name="address"
             value={inputValue.address}
             onChange={handleInputChange}
             id="address"
-            className={`w-full outline-none  rounded-md p-4 ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-400"}`}
-            style={{ background: colors.primary }}
+            className={`w-full outline-none  rounded-md p-4 ${
+              isDarkEnabled
+                ? "border border-gray-600"
+                : "border-2 border-slate-400"
+            }`}
+            style={{ background: colors.background }}
+            required
           />
         </div>
         <div className="w-full flex flex-col sm:flex-row gap-4">
           <div className="w-full sm:w-1/2 flex flex-col">
             <label htmlFor="dist" className="text-slate-400 text-sm">
-              City/District/Town {inputValue.city}
+              City/District/Town*
             </label>
             <input
               id="dist"
@@ -224,14 +209,18 @@ const EditApointmentAddress = ({ id, editaddress, closeEditAddressForm }) => {
               onChange={handleInputChange}
               type="text"
               placeholder="City/District/Town"
-              className={`outline-none  h-12 w-full rounded-md px-2  ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-400"}`}
-
-              style={{ background: colors.primary }}
+              className={`outline-none h-12 w-full rounded-md px-2  ${
+                isDarkEnabled
+                  ? "border border-gray-600"
+                  : "border-2 border-slate-400"
+              }`}
+              style={{ background: colors.background }}
+              required
             />
           </div>
           <div className="w-full sm:w-1/2 flex flex-col">
             <label htmlFor="state" className="text-slate-400 text-sm">
-              State
+              State*
             </label>
             <input
               id="state"
@@ -240,15 +229,26 @@ const EditApointmentAddress = ({ id, editaddress, closeEditAddressForm }) => {
               onChange={handleInputChange}
               type="text"
               placeholder="State Name"
-              className={`outline-none  h-12 w-full rounded-md px-2  ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-400"}`}
-
-              style={{ background: colors.primary }}
+              className={`outline-none h-12 w-full rounded-md px-2  ${
+                isDarkEnabled
+                  ? "border border-gray-600"
+                  : "border-2 border-slate-400"
+              }`}
+              style={{ background: colors.background }}
+              required
             />
           </div>
         </div>
+        <div className="w-full sm:w-1/2 rounded-md h-12 bg-blue-500 flex justify-center items-center gap-2">
+          <LocationIcon color="white" width="18" hieght="18" />{" "}
+          <p className="text-white"> Use current location</p>
+        </div>
         <div className="my-4">
-          <button type="submit" className="px-8 rounded-md py-2 bg-[#006afe] text-white">
-            {spin ? <CircularProgress color="white" size={18} /> : "SUBMIT"}
+          <button
+            type="submit"
+            className="px-8 rounded-md py-2 bg-[#006afe] text-white"
+          >
+            SUBMIT
           </button>
           <button
             className="px-4 text-[#006afe]"
@@ -258,6 +258,11 @@ const EditApointmentAddress = ({ id, editaddress, closeEditAddressForm }) => {
           </button>
         </div>
       </form>
+      <ConfirmModal
+        open={open}
+        data={data}
+        handleClose={handleClose}
+      />
     </div>
   );
 };

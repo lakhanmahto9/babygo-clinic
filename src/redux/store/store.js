@@ -3,7 +3,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import darkModeReducer from "../slice/darkModeSlice";
 import authReducer from "../slice/authSlice";
-import multipleAddressSlice from "../slice/addMultipleAddressSlice";
+import multipleClinicInfoSlice from "../slice/addMultipleAddressSlice";
 import getBookApointmentSlice from "../slice/getBookApointmentSlice";
 import uploadCertificateSlice from "../slice/addAndUpdateCertificateSlice";
 import multipleBankSlice from "../slice/addBankDetailSlice";
@@ -21,9 +21,9 @@ const persistAuth = persistReducer(
   { ...persistConfig, key: "auth" },
   authReducer
 );
-const persistApointmentAddress = persistReducer(
-  { ...persistConfig, key: "apointmentaddress" },
-  multipleAddressSlice
+const persistClinicInfo = persistReducer(
+  { ...persistConfig, key: "clinicinfo" },
+  multipleClinicInfoSlice
 );
 const persistBookApointment = persistReducer(
   { ...persistConfig, key: "apointment" },
@@ -53,7 +53,7 @@ const store = configureStore({
   reducer: {
     darkmode: persistedDarkModeReducer,
     auth: persistAuth,
-    apointmentaddress: persistApointmentAddress,
+    clinicinfo: persistClinicInfo,
     apointment: persistBookApointment,
     certificate: persistCertificate,
     bank: persistBankDetails,

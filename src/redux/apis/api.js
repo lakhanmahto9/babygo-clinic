@@ -41,17 +41,17 @@ export const addClinicInfoApi = (payload) => {
   });
 };
 
-export const getDoctorMultipleAddressApi = () => {
-  return axios.get(`${BASE_URL}/doctor/get-doctor-apointment-address`, {
+export const getMultipleClinicInfo = () => {
+  return axios.get(`${BASE_URL}/clinic/get-clinic-info`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("access_token")}`,
     },
   });
 };
 
-export const editDoctorMultipleAddressApi = (payload) => {
+export const editClinicInfoApi = (payload) => {
   return axios.post(
-    `${BASE_URL}/doctor/edit-doctor-apointment-address/${payload.id}`,
+    `${BASE_URL}/clinic/edit-clinic-info/${payload.id}`,
     payload.item,
     {
       headers: {
