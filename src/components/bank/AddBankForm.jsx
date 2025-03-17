@@ -61,7 +61,7 @@ const AddBankForm = ({ closeForm }) => {
           <div className="flex flex-col sm:flex-row gap-4">
             <div>
               <label htmlFor="holder" className="text-sm text-slate-400">
-                Holder Name
+                Clinic Name
               </label>
               <input
                 id="holder"
@@ -70,9 +70,9 @@ const AddBankForm = ({ closeForm }) => {
                 onChange={handleInputChange}
                 required
                 type="text"
-                placeholder="Holder Name"
-                className={`h-12 w-full outline-blue-600 border px-4 ${isDarkEnabled ? "border-gray-600" : "border-slate-300"}`}
-                style={{ background: colors.background }}
+                placeholder="Clinic Name"
+                className={`h-12 w-full border px-4 ${isDarkEnabled ? "border-gray-600" : "border-slate-300 outline-blue-600"}`}
+                style={{ background: colors.background, color:colors.text }}
               />
             </div>
             <div>
@@ -87,8 +87,8 @@ const AddBankForm = ({ closeForm }) => {
                 required
                 type="text"
                 placeholder="Bank Name"
-                className={`h-12 w-full outline-blue-600 border px-4 ${isDarkEnabled ? "border-gray-600" : "border-slate-300"}`}
-                style={{ background: colors.background }}
+                className={`h-12 w-full border px-4 ${isDarkEnabled ? "border-gray-600" : "border-slate-300 outline-blue-600"}`}
+                style={{ background: colors.background, color:colors.text }}
               />
             </div>
           </div>
@@ -105,8 +105,8 @@ const AddBankForm = ({ closeForm }) => {
                 type="text"
                 placeholder="Branch Name"
                 required
-                className={`h-12 w-full outline-blue-600 border px-4 ${isDarkEnabled ? "border-gray-600" : "border-slate-300"}`}
-                style={{ background: colors.background }}
+                className={`h-12 w-full border px-4 ${isDarkEnabled ? "border-gray-600" : "border-slate-300 outline-blue-600"}`}
+                style={{ background: colors.background, color:colors.text }}
               />
             </div>
             <div>
@@ -121,8 +121,8 @@ const AddBankForm = ({ closeForm }) => {
                 onChange={handleInputChange}
                 placeholder="IFSC Code"
                 required
-                className={`h-12 w-full outline-blue-600 border px-4 ${isDarkEnabled ? "border-gray-600" : "border-slate-300"}`}
-                style={{ background: colors.background }}
+                className={`h-12 w-full border px-4 ${isDarkEnabled ? "border-gray-600" : "border-slate-300 outline-blue-600"}`}
+                style={{ background: colors.background, color:colors.text }}
               />
             </div>
           </div>
@@ -138,8 +138,8 @@ const AddBankForm = ({ closeForm }) => {
               onChange={handleInputChange}
               placeholder="Account Number"
               required
-              className={`h-12 w-full outline-blue-600 border px-4 ${isDarkEnabled ? "border-gray-600" : "border-slate-300"}`}
-              style={{ background: colors.background }}
+              className={`h-12 w-full border px-4 ${isDarkEnabled ? "border-gray-600" : "border-slate-300 outline-blue-600"}`}
+              style={{ background: colors.background, color:colors.text }}
             />
           </div>
           <div className="flex gap-4">

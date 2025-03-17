@@ -8,8 +8,8 @@ import getBookApointmentSlice from "../slice/getBookApointmentSlice";
 import uploadCertificateSlice from "../slice/addAndUpdateCertificateSlice";
 import multipleBankSlice from "../slice/addBankDetailSlice";
 import multipleUpiSlice from "../slice/addUpiDetailSlice";
-import withdrawByUPISlice from "../slice/withdrawSlice";
-import withdrawByBankSlice from "../slice/withdrawBankSlice";
+import clinicWithdrawByUPISlice from "../slice/clinicWithdrawSlice"
+import clinicWithdrawByBankSlice from "../slice/clinicWithdrawBankSlice"
 
 const persistConfig = {
   key: "root",
@@ -42,12 +42,12 @@ const persistUpiDetails = persistReducer(
   multipleUpiSlice
 );
 const persistUpiWithdraw = persistReducer(
-  { ...persistConfig, key: "upiwithdraw" },
-  withdrawByUPISlice
+  { ...persistConfig, key: "clinicUpiwithdraw" },
+  clinicWithdrawByUPISlice
 );
 const persistBankWithdraw = persistReducer(
-  { ...persistConfig, key: "bankwithdraw" },
-  withdrawByBankSlice
+  { ...persistConfig, key: "clinicWithdrawbank" },
+  clinicWithdrawByBankSlice
 );
 const store = configureStore({
   reducer: {
@@ -58,8 +58,8 @@ const store = configureStore({
     certificate: persistCertificate,
     bank: persistBankDetails,
     upi: persistUpiDetails,
-    upiwithdraw:persistUpiWithdraw,
-    bankwithdraw:persistBankWithdraw
+    clinicUpiwithdraw:persistUpiWithdraw,
+    clinicWithdrawbank:persistBankWithdraw
   },
 });
 

@@ -9,10 +9,12 @@ import BankInfo from "./selectupiorbank/BankInfo";
 import { FetchBankDetails } from "../../redux/slice/addBankDetailSlice";
 import { FetchUPIDetails } from "../../redux/slice/addUpiDetailSlice";
 import { toast } from "react-toastify";
-import { WithdrawAmount } from "../../redux/slice/withdrawSlice";
+// import { WithdrawAmount } from "../../redux/slice/withdrawSlice";
+import { clinicWithdrawAmount } from "../../redux/slice/clinicWithdrawSlice";
 import { CircularProgress } from "@mui/material";
-import { WithdrawBankAmount } from "../../redux/slice/withdrawBankSlice";
-import { FetchConsultantData } from "../../redux/slice/authSlice";
+// import { WithdrawBankAmount } from "../../redux/slice/withdrawBankSlice";
+import { ClinicWithdrawBankAmount } from "../../redux/slice/clinicWithdrawBankSlice";
+import { FetchClinicData } from "../../redux/slice/authSlice";
 
 const Wallet = () => {
   const dispatch = useDispatch();
@@ -58,22 +60,22 @@ const Wallet = () => {
           value: { ...withdrawal, amount },
         };
         if (id === "upi") {
-          const result = await dispatch(WithdrawAmount(data));
+          const result = await dispatch(clinicWithdrawAmount(data));
           console.log(result.payload);
           if (result.payload?.data?.success) {
             setSpin(false);
             toast.success(result.payload?.data?.message);
-            dispatch(FetchConsultantData());
+            dispatch(FetchClinicData());
           } else {
             setSpin(false);
             toast.error(result.payload?.message);
           }
         } else {
-          const result = await dispatch(WithdrawBankAmount(data));
+          const result = await dispatch(ClinicWithdrawBankAmount(data));
           if (result.payload?.data?.success) {
             setSpin(false);
             toast.success(result.payload?.data?.message);
-            dispatch(FetchConsultantData());
+            dispatch(FetchClinicData());
           } else {
             setSpin(false);
             toast.error(result.payload?.message);

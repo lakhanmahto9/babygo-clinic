@@ -52,7 +52,7 @@ const Sidebar = () => {
   return (
     <div
       className="w-full h-screen p-2 shadow-md sticky top-0 left-0"
-      style={{ background: colors.secondbackground, color: colors.text }}
+      style={{ background: colors.secondCardBg, color: colors.text }}
     >
       <div className="h-[15%] flex gap-10 justify-center items-center">
         <div className="w-20 h-20">

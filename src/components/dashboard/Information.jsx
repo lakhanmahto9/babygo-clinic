@@ -4,7 +4,7 @@ import { WalletIcon } from "../../assets/icons/Icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useThemeColors } from "../../utils/useThemeColor";
 import { useNavigate } from "react-router-dom";
-import { FetchConsultantData } from "../../redux/slice/authSlice";
+import { FetchClinicData } from "../../redux/slice/authSlice";
 
 const Information = () => {
   const apointment = useSelector((state) => state.apointment?.apointment || []);
@@ -17,7 +17,7 @@ const Information = () => {
     navigate("/wallet")
   }
   useEffect(()=>{
-     dispatch(FetchConsultantData());
+     dispatch(FetchClinicData());
   },[])
   return (
     <div className="w-full mt-1">

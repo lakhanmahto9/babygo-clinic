@@ -17,8 +17,8 @@ export const clinicLogin = (payload) => {
   });
 };
 
-export const getDoctorApi = () => {
-  return axios.get(`${BASE_URL}/doctor/fetch-doctor-data`, {
+export const getClinicApi = () => {
+  return axios.get(`${BASE_URL}/clinic/fetch-clinic-data`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("access_token")}`,
     },
@@ -171,9 +171,9 @@ export const deleteUpiApi = (id) => {
   });
 };
 
-export const withdrawApi = (payload) => {
+export const clinicWithdrawApi = (payload) => {
   console.log(payload)
-  return axios.post(`${BASE_URL}/doctor/withdraw/${payload.id}`,payload.value, {
+  return axios.post(`${BASE_URL}/clinic/clinic-withdraw/${payload.id}`,payload.value, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("access_token")}`,
     },
