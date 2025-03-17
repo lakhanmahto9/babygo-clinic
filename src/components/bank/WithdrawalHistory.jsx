@@ -3,20 +3,20 @@ import BankHome from "./BankHome";
 import { CurrencyRupee } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment/moment";
-import { FetchUpiWithdraw } from "../../redux/slice/withdrawSlice";
-import { FetchBankAmount } from "../../redux/slice/withdrawBankSlice";
 import { useThemeColors } from "../../utils/useThemeColor";
+import { ClinicFetchUpiWithdraw } from "../../redux/slice/clinicWithdrawSlice";
+import { ClinicFetchBankAmount } from "../../redux/slice/clinicWithdrawBankSlice";
 
 const WithdrawalHistory = () => {
   const isDarkEnabled = useSelector((state) => state.darkmode.dark);
   const colors = useThemeColors(isDarkEnabled);
-  const upi = useSelector((state) => state.upiwithdraw?.upi || []);
-  const bank = useSelector((state) => state.bankwithdraw?.bank || []);
+  const upi = useSelector((state) => state.clinicUpiwithdraw?.upi || []);
+  const bank = useSelector((state) => state.clinicWithdrawbank?.bank || []);
   const [selectedDate, setSelectedDate] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(FetchUpiWithdraw());
-    dispatch(FetchBankAmount());
+    dispatch(ClinicFetchUpiWithdraw());
+    dispatch(ClinicFetchBankAmount());
   }, [dispatch]);
   const filteredUpi = upi.filter((item) =>
     selectedDate

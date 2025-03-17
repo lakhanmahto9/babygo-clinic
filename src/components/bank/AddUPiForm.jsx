@@ -53,8 +53,8 @@ const AddUPiForm = ({closeForm}) => {
               type="text"
               placeholder="UPI ID"
               required
-              className={`h-12 w-full outline-blue-600 border px-4 ${isDarkEnabled ? "border-gray-600" : "border-slate-300"}`}
-              style={{background:colors.primary}}
+              className={`h-12 w-full border px-4 ${isDarkEnabled ? "border-gray-600" : "border-slate-300 outline-blue-600"}`}
+              style={{background:colors.primary, color:colors.text}}
             />
           </div>
           <div className="flex gap-4">

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { clinicLogin, clinicRegister, getDoctorApi, updateProfileInformationApi } from "../apis/api";
+import { clinicLogin, clinicRegister, getClinicApi, updateProfileInformationApi } from "../apis/api";
 
 
 
@@ -48,11 +48,11 @@ export const updateProfileInformation = createAsyncThunk(
   }
 );
 
-export const FetchConsultantData = createAsyncThunk(
+export const FetchClinicData = createAsyncThunk(
   "fetch",
   async (_, thunkAPI) => {
     try {
-      const data = await getDoctorApi();
+      const data = await getClinicApi();
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(
@@ -138,15 +138,15 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
       // fetch
-      .addCase(FetchConsultantData.pending, (state) => {
+      .addCase(FetchClinicData.pending, (state) => {
         state.status = "loading";
         state.error = null;
       })
-      .addCase(FetchConsultantData.fulfilled, (state, action) => {
+      .addCase(FetchClinicData.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.user = { ...state.user, ...action.payload.data };
       })
-      .addCase(FetchConsultantData.rejected, (state, action) => {
+      .addCase(FetchClinicData.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       })
