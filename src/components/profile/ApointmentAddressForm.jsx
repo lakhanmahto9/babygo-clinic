@@ -10,10 +10,8 @@ import { useThemeColors } from "../../utils/useThemeColor";
 
 const ApointmentAddressForm = () => {
   const isDarkEnabled = useSelector((state) => state.darkmode.dark);
-  const colors = useThemeColors(isDarkEnabled)
-  const clinicinfo = useSelector(
-    (state) => state.clinicinfo?.address || []
-  );
+  const colors = useThemeColors(isDarkEnabled);
+  const clinicinfo = useSelector((state) => state.clinicinfo?.address || []);
   const dispatch = useDispatch();
   const [menuAnchor, setMenuAnchor] = useState({ id: null, anchor: null });
   const [openForm, setOpenform] = useState(false);
@@ -38,34 +36,50 @@ const ApointmentAddressForm = () => {
     setSelectedId(addressid);
     handleMenuClose();
   };
-  const closeEditForm = ()=>{
-    setSelectedId(null)
-  }
+  const closeEditForm = () => {
+    setSelectedId(null);
+  };
   return (
     <Profile>
-      <div className={`w-full border rounded-md ${isDarkEnabled ? "border-gray-600" : ""}`} style={{background:colors.cardBg}}>
+      <div
+        className={`w-full border rounded-md ${
+          isDarkEnabled ? "border-gray-600" : ""
+        }`}
+        style={{ background: colors.cardBg }}
+      >
         <div className="p-4">
           <p className="font-bold">Manage Clinic Information</p>
         </div>
-      <div className={`border-b ${isDarkEnabled ? "border-gray-600" : ""}`}></div>
-        <div className="w-full p-4">
-          {!openForm ? (
-            <div
-              onClick={() => setOpenform(true)}
-              className={`w-full border flex justify-start items-center p-4 gap-4 cursor-pointer ${isDarkEnabled ? "border-gray-600" : ""}`}
-            >
-              <AddIcon color="#2892FC" width="20" height="20" />
-              <p className="text-[#2892FC]">ADD NEW CLINIC</p>
-            </div>
-          ) : (
-            <ApointmentForm closeAddressForm={closeForm} />
-          )}
-        </div>
+        <div
+          className={`border-b ${isDarkEnabled ? "border-gray-600" : ""}`}
+        ></div>
+        {!clinicinfo.length > 0 && (
+          <div className="w-full p-4">
+            {!openForm ? (
+              <div
+                onClick={() => setOpenform(true)}
+                className={`w-full border flex justify-start items-center p-4 gap-4 cursor-pointer ${
+                  isDarkEnabled ? "border-gray-600" : ""
+                }`}
+              >
+                <AddIcon color="#2892FC" width="20" height="20" />
+                <p className="text-[#2892FC]">ADD NEW CLINIC</p>
+              </div>
+            ) : (
+              <ApointmentForm closeAddressForm={closeForm} />
+            )}
+          </div>
+        )}
         <div className="p-4">
-          <div className={`border ${isDarkEnabled ? "border-gray-600" :""}`}>
+          <div className={`border ${isDarkEnabled ? "border-gray-600" : ""}`}>
             {clinicinfo.map((item, index) =>
               selectedId !== item._id ? (
-                <div className={`w-full flex p-4 border-b ${isDarkEnabled ? "border-gray-600" : ""}`} key={index}>
+                <div
+                  className={`w-full flex p-4 border-b ${
+                    isDarkEnabled ? "border-gray-600" : ""
+                  }`}
+                  key={index}
+                >
                   <div className="w-4/5">
                     <p className="text-sm">
                       {item.address}, {item.locality}, {item.city}
@@ -83,7 +97,11 @@ const ApointmentAddressForm = () => {
                       aria-haspopup="true"
                       onClick={(event) => handleMenuClick(event, item._id)}
                     >
-                      <VerticalThreeDotIcon color={colors.text} width="18" height="18" />
+                      <VerticalThreeDotIcon
+                        color={colors.text}
+                        width="18"
+                        height="18"
+                      />
                     </Button>
 
                     <Menu
@@ -103,7 +121,11 @@ const ApointmentAddressForm = () => {
                   </div>
                 </div>
               ) : (
-                <div className={`p-4 border ${isDarkEnabled ? "border-gray-600" : ""}`}>
+                <div
+                  className={`p-4 border ${
+                    isDarkEnabled ? "border-gray-600" : ""
+                  }`}
+                >
                   <EditApointmentAddress
                     id={selectedId}
                     editaddress={item}

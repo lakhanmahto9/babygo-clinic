@@ -17,7 +17,7 @@ const Profile = ({ children }) => {
   return (
     <Layout>
       <div className={`w-full relative ${isDarkEnabled ? "bg-[#010844]" : " "}`} style={{color:colors.text}}>
-        <div className={`flex items-center gap-4 h-12 border-b shadow-sm px-4 sticky top-0 cursor-pointer ${isDarkEnabled ? "border-gray-600" : ""}`} style={{background:colors.thirdCardBg}} onClick={()=>navigate('/')}>
+        <div className={`flex items-center gap-4 h-12 border-b z-10 shadow-sm px-4 sticky top-0 cursor-pointer ${isDarkEnabled ? "border-gray-600" : ""}`} style={{background:colors.thirdCardBg}} onClick={()=>navigate('/')}>
           <BackIcon color={colors.text} width="24" height="24" />{" "}
           <p className="text-lg font-bold">Profile</p>
         </div>

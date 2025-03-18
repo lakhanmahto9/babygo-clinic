@@ -172,7 +172,6 @@ export const deleteUpiApi = (id) => {
 };
 
 export const clinicWithdrawApi = (payload) => {
-  console.log(payload)
   return axios.post(`${BASE_URL}/clinic/clinic-withdraw/${payload.id}`,payload.value, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -196,4 +195,18 @@ export const fetchBankWithdrawApi = () => {
   });
 };
 
+export const clinicWithSaveDoctorApi = (payload) => {
+  return axios.post(`${BASE_URL}/clinic/save-doctor`,payload, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+    },
+  });
+};
 
+export const fetchDoctorApi = () => {
+  return axios.get(`${BASE_URL}/clinic/get-doctor`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+    },
+  });
+};

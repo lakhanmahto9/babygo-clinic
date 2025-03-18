@@ -2,21 +2,42 @@ import React, { useEffect, useRef, useState } from "react";
 import Profile from "./Profile";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { CircularProgress } from "@mui/material";
+import { Button, CircularProgress, Menu, MenuItem } from "@mui/material";
 import { useThemeColors } from "../../utils/useThemeColor";
-import { AddIcon } from "../../assets/icons/Icons";
+import { AddIcon, VerticalThreeDotIcon } from "../../assets/icons/Icons";
 import AddDoctorForm from "./AddDoctorForm";
+import { GetDoctor } from "../../redux/slice/doctorSlice";
 
 const Doctor = () => {
   const isDarkEnabled = useSelector((state) => state.darkmode.dark);
-  const colors = useThemeColors(isDarkEnabled);
-
+  const doctor = useSelector((state) => state.doctor?.doctor || []);
+  const [menuAnchor, setMenuAnchor] = useState({ id: null, anchor: null });
   const dispatch = useDispatch();
+  const colors = useThemeColors(isDarkEnabled);
   const [openForm, setOpenform] = useState(false);
+    const [selectedId, setSelectedId] = useState(null);
   const closeForm = () => {
     setOpenform(false);
   };
 
+  useEffect(() => {
+    dispatch(GetDoctor());
+  },[]);
+
+  const handleMenuClick = (event, id) => {
+    setMenuAnchor({ id, anchor: event.currentTarget });
+  };
+
+  const handleMenuClose = () => {
+    setMenuAnchor({ id: null, anchor: null });
+  };
+  const openEditDoctor = (addressid) => {
+    setSelectedId(addressid);
+    handleMenuClose();
+  };
+  const closeEditForm = () => {
+    setSelectedId(null);
+  };
   return (
     <Profile>
       <div
@@ -46,6 +67,75 @@ const Doctor = () => {
           ) : (
             <AddDoctorForm closeDoctorForm={closeForm} />
           )}
+        </div>
+        <div className="p-4">
+          <div className={`border ${isDarkEnabled ? "border-gray-600" : ""}`}>
+            {doctor.map((item, index) =>
+              selectedId !== item._id ? (
+                <div
+                  className={`w-full flex p-4 border-b ${
+                    isDarkEnabled ? "border-gray-600" : ""
+                  }`}
+                  key={index}
+                >
+                  <div className="w-4/5">
+                  <p className="text-sm font-semibold">
+                      {item.name}, {item.phone}
+                    </p>{" "}
+                    <p className="text-sm">
+                      {item.address}, {item.locality}, {item.city}
+                    </p>{" "}
+                    <p className="text-sm font-semibold">
+                      {item.state} - {item.zipCode}
+                    </p>
+                  </div>
+                  <div className="w-1/5 flex justify-end cursor-pointer">
+                    <Button
+                      id={`menu-button-${item._id}`}
+                      aria-controls={
+                        menuAnchor.id === item._id ? "menu" : undefined
+                      }
+                      aria-haspopup="true"
+                      onClick={(event) => handleMenuClick(event, item._id)}
+                    >
+                      <VerticalThreeDotIcon
+                        color={colors.text}
+                        width="18"
+                        height="18"
+                      />
+                    </Button>
+
+                    <Menu
+                      id="menu"
+                      anchorEl={menuAnchor.anchor}
+                      open={menuAnchor.id === item._id}
+                      onClose={handleMenuClose}
+                      MenuListProps={{
+                        "aria-labelledby": `menu-button-${item._id}`,
+                      }}
+                    >
+                      <MenuItem onClick={() => openEditDoctor(item._id)}>
+                        Edit
+                      </MenuItem>
+                      <MenuItem onClick={handleMenuClose}>Delete</MenuItem>
+                    </Menu>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  className={`p-4 border ${
+                    isDarkEnabled ? "border-gray-600" : ""
+                  }`}
+                >
+                  <EditApointmentAddress
+                    id={selectedId}
+                    editaddress={item}
+                    closeEditAddressForm={closeEditForm}
+                  />
+                </div>
+              )
+            )}
+          </div>
         </div>
       </div>
     </Profile>
