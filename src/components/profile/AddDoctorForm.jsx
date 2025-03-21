@@ -3,14 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { AddDoctor } from "../../redux/slice/doctorSlice";
 import { toast } from "react-toastify";
 import { CircularProgress } from "@mui/material";
+import { useThemeColors } from "../../utils/useThemeColor";
 
-const AddDoctorForm = ({closeDoctorForm}) => {
+const AddDoctorForm = ({ closeDoctorForm }) => {
   const clinicinfo = useSelector((state) => state.clinicinfo?.address || []);
   const dispatch = useDispatch();
+  const isDarkEnabled = useSelector((state) => state.darkmode.dark);
+  const colors = useThemeColors(isDarkEnabled);
   const [spin, setSpin] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
-    clinicId:clinicinfo[0]._id,
+    clinicId: clinicinfo[0]._id,
     name: "",
     phone: "",
     email: "",
@@ -116,7 +119,7 @@ const AddDoctorForm = ({closeDoctorForm}) => {
     }
   };
   return (
-    <div className="w-full border p-4">
+    <div className={`w-full border p-4 ${isDarkEnabled ? "border-gray-600" : ""}`}>
       <p className="text-sm font-semibold">ADD NEW DOCTOR</p>
       <form
         onSubmit={handleSubmit}
@@ -132,7 +135,8 @@ const AddDoctorForm = ({closeDoctorForm}) => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="h-12 px-4 w-full border-2 rounded-md border-slate-500 outline-blue-500"
+              className={`h-12 px-4 w-full rounded-md outline-blue-500 ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-500"}`}
+              style={{ background: colors.secondbackground }}
             />
           </div>
           <div className="w-full sm:w-1/2 relative">
@@ -143,7 +147,8 @@ const AddDoctorForm = ({closeDoctorForm}) => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="h-12 pl-2 pr-12 w-full border-2 rounded-md border-slate-500 outline-blue-500"
+              className={`h-12 px-4 w-full rounded-md outline-blue-500 ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-500"}`}
+              style={{ background: colors.secondbackground }}
             />
             <div className="absolute bottom-0 right-0 text-xs rounded-r-md bg-blue-500 h-12 flex justify-center items-center px-2 text-white">
               Visible
@@ -161,7 +166,8 @@ const AddDoctorForm = ({closeDoctorForm}) => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="h-12 px-4 w-full border-2 rounded-md border-slate-500 outline-blue-500"
+              className={`h-12 px-4 w-full rounded-md outline-blue-500 ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-500"}`}
+              style={{ background: colors.secondbackground }}
             />
             <div className="absolute bottom-0 right-0 text-xs rounded-r-md bg-blue-500 h-12 flex justify-center items-center px-2 text-white">
               Visible
@@ -176,7 +182,8 @@ const AddDoctorForm = ({closeDoctorForm}) => {
               name="registrationNumber"
               value={formData.registrationNumber}
               onChange={handleChange}
-              className="h-12 px-4 w-full border-2 rounded-md border-slate-500 outline-blue-500"
+              className={`h-12 px-4 w-full rounded-md outline-blue-500 ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-500"}`}
+              style={{ background: colors.secondbackground }}
             />
           </div>
         </div>
@@ -196,7 +203,8 @@ const AddDoctorForm = ({closeDoctorForm}) => {
               name="zipCode"
               value={formData.zipCode}
               onChange={handleChange}
-              className="h-12 px-4 w-full border-2 rounded-md border-slate-500 outline-blue-500"
+              className={`h-12 px-4 w-full rounded-md outline-blue-500 ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-500"}`}
+              style={{ background: colors.secondbackground }}
             />
           </div>
           <div className="w-full sm:w-1/2 relative">
@@ -208,7 +216,8 @@ const AddDoctorForm = ({closeDoctorForm}) => {
               name="locality"
               value={formData.locality}
               onChange={handleChange}
-              className="h-12 pl-2 pr-12 w-full border-2 rounded-md border-slate-500 outline-blue-500"
+              className={`h-12 px-4 w-full rounded-md outline-blue-500 ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-500"}`}
+              style={{ background: colors.secondbackground }}
             />
           </div>
         </div>
@@ -223,7 +232,8 @@ const AddDoctorForm = ({closeDoctorForm}) => {
             name="address"
             value={formData.address}
             onChange={handleChange}
-            className="p-4 w-full border-2 rounded-md border-slate-500 outline-blue-500"
+            className={`h-12 px-4 w-full rounded-md outline-blue-500 ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-500"}`}
+            style={{ background: colors.secondbackground }}
           />
         </div>
         <div className="flex flex-col sm:flex-row w-full gap-4">
@@ -236,7 +246,8 @@ const AddDoctorForm = ({closeDoctorForm}) => {
               name="city"
               value={formData.city}
               onChange={handleChange}
-              className="h-12 px-4 w-full border-2 rounded-md border-slate-500 outline-blue-500"
+              className={`h-12 px-4 w-full rounded-md outline-blue-500 ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-500"}`}
+              style={{ background: colors.secondbackground }}
             />
           </div>
           <div className="w-full sm:w-1/2 relative">
@@ -248,7 +259,8 @@ const AddDoctorForm = ({closeDoctorForm}) => {
               name="state"
               value={formData.state}
               onChange={handleChange}
-              className="h-12 pl-2 pr-12 w-full border-2 rounded-md border-slate-500 outline-blue-500"
+              className={`h-12 px-4 w-full rounded-md outline-blue-500 ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-500"}`}
+              style={{ background: colors.secondbackground }}
             />
           </div>
         </div>
@@ -261,7 +273,8 @@ const AddDoctorForm = ({closeDoctorForm}) => {
             name="degree"
             value={formData.degree}
             onChange={handleChange}
-            className="p-4 w-full border-2 rounded-md border-slate-500 outline-blue-500"
+            className={`h-12 px-4 w-full rounded-md outline-blue-500 ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-500"}`}
+            style={{ background: colors.secondbackground }}
           />
         </div>
         <div className="flex flex-col sm:flex-row w-full gap-4">
@@ -275,7 +288,8 @@ const AddDoctorForm = ({closeDoctorForm}) => {
               name="experience"
               value={formData.experience}
               onChange={handleChange}
-              className="h-12 px-4 w-full border-2 rounded-md border-slate-500 outline-blue-500"
+              className={`h-12 px-4 w-full rounded-md outline-blue-500 ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-500"}`}
+              style={{ background: colors.secondbackground }}
             />
           </div>
           <div className="w-full sm:w-1/2 relative z-0">
@@ -288,7 +302,8 @@ const AddDoctorForm = ({closeDoctorForm}) => {
               name="expertise"
               value={formData.expertise}
               onChange={handleChange}
-              className="h-12 pl-2 pr-12 w-full border-2 rounded-md border-slate-500 outline-blue-500"
+              className={`h-12 px-4 w-full rounded-md outline-blue-500 ${isDarkEnabled ? "border border-gray-600" : "border-2 border-slate-500"}`}
+              style={{ background: colors.secondbackground }}
             />
             <div className="absolute bottom-0 right-0 text-xs rounded-r-md bg-blue-500 h-12 flex justify-center items-center px-2 text-white">
               Hide
@@ -297,7 +312,7 @@ const AddDoctorForm = ({closeDoctorForm}) => {
         </div>
         <p className="font-bold">Appointment schedule</p>
         {formData.schedules.map((schedule, index) => (
-          <div key={index} className="bg-blue-50 p-4 rounded-md border">
+          <div key={index} className={`p-4 rounded-md border ${isDarkEnabled ? "border-gray-600" : "bg-blue-50 "}`}>
             <div>
               <label htmlFor="info">Doctor's Information*</label>
               <textarea
@@ -307,15 +322,17 @@ const AddDoctorForm = ({closeDoctorForm}) => {
                 name="doctorInfo"
                 value={schedule.doctorInfo}
                 onChange={(e) => handleScheduleChange(e, index, "doctorInfo")}
-                className="p-4 w-full border rounded-md outline-blue-500"
+                className={`p-4 w-full border rounded-md outline-blue-500 ${isDarkEnabled ? "border-gray-600" : ""}`}
+                style={{ background: colors.secondbackground }}
               />
             </div>
             <div className="flex flex-col sm:flex-row w-full gap-4">
               <div className="w-full sm:w-1/2">
                 <label>Select Days*</label>
                 <div
-                  className="w-full px-4 py-2 border rounded-md cursor-pointer bg-white"
+                  className={`w-full px-4 py-2 border rounded-md cursor-pointer ${isDarkEnabled ? "border-gray-600" : ""}`}
                   onClick={() => setIsOpen(isOpen === index ? null : index)}
+                  style={{ background: colors.secondbackground }}
                 >
                   {schedule.selectedDays.length > 0
                     ? schedule.selectedDays.join(", ")
@@ -323,15 +340,21 @@ const AddDoctorForm = ({closeDoctorForm}) => {
                 </div>
 
                 {isOpen === index && (
-                  <div className="bg-white border rounded-md shadow-lg z-10">
+                  <div className={`border rounded-md shadow-lg z-10 ${isDarkEnabled ? "border-gray-600" : ""}`}
+                    style={{ background: colors.secondbackground }}
+                  >
                     {days.map((day) => (
                       <div
                         key={day}
-                        className={`p-2 cursor-pointer hover:bg-blue-100 ${
-                          schedule.selectedDays.includes(day)
-                            ? "bg-blue-200"
-                            : ""
-                        }`}
+                        className={`p-2 cursor-pointer 
+                          ${isDarkEnabled ? "hover:bg-[#1e293b]" : "hover:bg-blue-100"} 
+                          ${schedule.selectedDays.includes(day)
+                            ? isDarkEnabled
+                              ? "bg-[#334155]"
+                              : "bg-blue-200"
+                            : ""}`
+                        }
+
                         onClick={() => handleSelect(day, index)}
                       >
                         {day}
@@ -352,7 +375,8 @@ const AddDoctorForm = ({closeDoctorForm}) => {
                     onChange={(e) =>
                       handleScheduleChange(e, index, "startTime")
                     }
-                    className="h-10 w-full border rounded-md outline-blue-500"
+                    className={`h-10 w-full border rounded-md outline-blue-500 ${isDarkEnabled ? "border-gray-600" : ""}`}
+                    style={{ background: colors.secondbackground }}
                   />
                 </div>
                 <div className="w-full">
@@ -362,7 +386,8 @@ const AddDoctorForm = ({closeDoctorForm}) => {
                     type="time"
                     value={schedule.endTime}
                     onChange={(e) => handleScheduleChange(e, index, "endTime")}
-                    className="h-10 w-full border rounded-md outline-blue-500"
+                    className={`h-10 w-full border rounded-md outline-blue-500 ${isDarkEnabled ? "border-gray-600" : ""}`}
+                    style={{ background: colors.secondbackground }}
                   />
                 </div>
               </div>
@@ -373,9 +398,10 @@ const AddDoctorForm = ({closeDoctorForm}) => {
                 name="clinicinfo"
                 id="assign"
                 required
-                className="h-10 w-full border rounded-md outline-blue-500"
+                className={`h-10 w-full border rounded-md outline-blue-500 ${isDarkEnabled ? "border-gray-600" : ""}`}
                 value={schedule.clinicinfo} // Read value from state
                 onChange={(e) => handleScheduleChange(e, index, "clinicinfo")} // Update state
+                style={{ background: colors.secondbackground }}
               >
                 <option value="">Select Clinic</option>
                 {clinicinfo.map((item, index) => (
@@ -388,7 +414,7 @@ const AddDoctorForm = ({closeDoctorForm}) => {
             {formData.schedules.length > 1 && (
               <button
                 type="button"
-                className="bg-red-100 px-4 py-2 my-2 rounded-md border"
+                className={` px-4 py-2 my-2 rounded-md border ${isDarkEnabled ? "bg-[#040836] border-gray-600" : "bg-red-100"}`}
                 onClick={() => handleRemoveSchedule(index)}
               >
                 CANCEL
@@ -407,7 +433,7 @@ const AddDoctorForm = ({closeDoctorForm}) => {
           </button>
         </div>
         <div className="flex gap-4">
-        
+
           <button
             type="submit"
             className="bg-blue-500 w-32 font-semibold text-white py-2 px-4 rounded-md border"
