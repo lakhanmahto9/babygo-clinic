@@ -7,6 +7,8 @@ import { useThemeColors } from "../../utils/useThemeColor";
 import { AddIcon, VerticalThreeDotIcon } from "../../assets/icons/Icons";
 import AddDoctorForm from "./AddDoctorForm";
 import { GetDoctor } from "../../redux/slice/doctorSlice";
+import EditDoctor from "./EditDoctor";
+import DeleteConfirm from "./confirm/doctor/DeleteConfirm";
 
 const Doctor = () => {
   const isDarkEnabled = useSelector((state) => state.darkmode.dark);
@@ -15,14 +17,16 @@ const Doctor = () => {
   const dispatch = useDispatch();
   const colors = useThemeColors(isDarkEnabled);
   const [openForm, setOpenform] = useState(false);
-    const [selectedId, setSelectedId] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  const [id, setId] = useState(null);
   const closeForm = () => {
     setOpenform(false);
   };
 
   useEffect(() => {
     dispatch(GetDoctor());
-  },[]);
+  }, []);
 
   const handleMenuClick = (event, id) => {
     setMenuAnchor({ id, anchor: event.currentTarget });
@@ -35,8 +39,18 @@ const Doctor = () => {
     setSelectedId(addressid);
     handleMenuClose();
   };
+  const openDeleteDoctor = (addressid) => {
+    setId(addressid);
+    handleMenuClose();
+    setOpen(true);
+  };
   const closeEditForm = () => {
     setSelectedId(null);
+  };
+  const closeDeleteModal = () => {
+    console.log("close")
+    setOpen(false);
+    setId(null);
   };
   return (
     <Profile>
@@ -79,7 +93,7 @@ const Doctor = () => {
                   key={index}
                 >
                   <div className="w-4/5">
-                  <p className="text-sm font-semibold">
+                    <p className="text-sm font-semibold">
                       {item.name}, {item.phone}
                     </p>{" "}
                     <p className="text-sm">
@@ -117,7 +131,9 @@ const Doctor = () => {
                       <MenuItem onClick={() => openEditDoctor(item._id)}>
                         Edit
                       </MenuItem>
-                      <MenuItem onClick={handleMenuClose}>Delete</MenuItem>
+                      <MenuItem onClick={() => openDeleteDoctor(item._id)}>
+                        Delete
+                      </MenuItem>
                     </Menu>
                   </div>
                 </div>
@@ -127,10 +143,10 @@ const Doctor = () => {
                     isDarkEnabled ? "border-gray-600" : ""
                   }`}
                 >
-                  <EditApointmentAddress
+                  <EditDoctor
                     id={selectedId}
-                    editaddress={item}
-                    closeEditAddressForm={closeEditForm}
+                    editdoctor={item}
+                    closeDoctorForm={closeEditForm}
                   />
                 </div>
               )
@@ -138,6 +154,7 @@ const Doctor = () => {
           </div>
         </div>
       </div>
+      <DeleteConfirm open={open} id={id} closeModal={closeDeleteModal} />
     </Profile>
   );
 };

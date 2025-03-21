@@ -1,5 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { clinicWithSaveDoctorApi, fetchDoctorApi } from "../apis/api";
+import {
+  clinicWithSaveDoctorApi,
+  deleteDoctorApi,
+  fetchDoctorApi,
+  updateDoctorApi,
+} from "../apis/api";
 
 export const AddDoctor = createAsyncThunk(
   "doctor/adddoctor",
@@ -24,6 +29,34 @@ export const GetDoctor = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(
         error.response?.data || { message: "Address fetch failed" }
+      );
+    }
+  }
+);
+
+export const EditDoctorInfo = createAsyncThunk(
+  "doctor/editdoctor",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await updateDoctorApi(payload);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data || { message: "Doctor update failed" }
+      );
+    }
+  }
+);
+
+export const DeleteDoctorDetails = createAsyncThunk(
+  "doctor/delete",
+  async (id, thunkAPI) => {
+    try {
+      const data = await deleteDoctorApi(id);
+      return { id, data };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data || { message: "Delete failed" }
       );
     }
   }
@@ -63,6 +96,42 @@ const addDoctorSlice = createSlice({
         state.doctor.push(action.payload.data.data);
       })
       .addCase(AddDoctor.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+
+      //update
+      .addCase(EditDoctorInfo.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(EditDoctorInfo.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.status = "succeeded";
+        const index = state.doctor.findIndex(
+          (item) => item._id === action.payload.data.data._id
+        );
+
+        if (index !== -1) {
+          state.doctor[index] = action.payload.data.data;
+        }
+      })
+      .addCase(EditDoctorInfo.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      // Delete
+      .addCase(DeleteDoctorDetails.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(DeleteDoctorDetails.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.doctor = state.doctor.filter(
+          (item) => item._id !== action.payload.id
+        );
+      })
+      .addCase(DeleteDoctorDetails.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       });
