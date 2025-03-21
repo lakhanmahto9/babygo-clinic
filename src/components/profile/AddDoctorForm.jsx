@@ -32,7 +32,6 @@ const AddDoctorForm = ({ closeDoctorForm }) => {
         selectedDays: [],
         startTime: "",
         endTime: "",
-        clinicinfo: "",
       },
     ],
   });
@@ -86,7 +85,6 @@ const AddDoctorForm = ({ closeDoctorForm }) => {
           startTime: "",
           endTime: "",
           doctorInfo: "",
-          clinicinfo: "",
         },
       ],
     }));
@@ -391,25 +389,6 @@ const AddDoctorForm = ({ closeDoctorForm }) => {
                   />
                 </div>
               </div>
-            </div>
-            <div className="w-full">
-              <label htmlFor="assign">Assign to clinic</label>
-              <select
-                name="clinicinfo"
-                id="assign"
-                required
-                className={`h-10 w-full border rounded-md outline-blue-500 ${isDarkEnabled ? "border-gray-600" : ""}`}
-                value={schedule.clinicinfo} // Read value from state
-                onChange={(e) => handleScheduleChange(e, index, "clinicinfo")} // Update state
-                style={{ background: colors.secondbackground }}
-              >
-                <option value="">Select Clinic</option>
-                {clinicinfo.map((item, index) => (
-                  <option key={index} value={item.clinicName}>
-                    {item.clinicName}
-                  </option>
-                ))}
-              </select>
             </div>
             {formData.schedules.length > 1 && (
               <button

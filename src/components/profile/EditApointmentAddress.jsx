@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { CircularProgress } from "@mui/material";
-import { EditClinicInfo } from "../../redux/slice/addMultipleAddressSlice";
+import { useSelector } from "react-redux";
+
 import { useThemeColors } from "../../utils/useThemeColor";
 import { LocationIcon } from "../../assets/icons/Icons";
 import ConfirmModal from "./confirm/ConfirmModal";

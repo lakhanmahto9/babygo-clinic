@@ -1,16 +1,17 @@
 import { CircularProgress, Dialog } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { EditClinicInfo } from "../../../redux/slice/addMultipleAddressSlice";
 import { toast } from "react-toastify";
+import { EditDoctorInfo } from "../../../../redux/slice/doctorSlice";
 
-const ConfirmModal = ({ open, data, handleClose }) => {
+const DoctorConfirm = ({ open, data, handleClose }) => {
   const dispatch = useDispatch();
   const [spin, setSpin] = useState(false);
   const handleClick = async () => {
+    setSpin(true);
     try {
-      const result = await dispatch(EditClinicInfo(data));
-      if (result?.payload?.data?.success) {
+      const result = await dispatch(EditDoctorInfo(data));
+      if (result.payload?.data?.success) {
         setSpin(false);
         toast.success(result.payload.data.message);
         handleClose();
@@ -36,7 +37,14 @@ const ConfirmModal = ({ open, data, handleClose }) => {
             onClick={handleClick}
             className="bg-blue-500 px-4 py-2 text-white"
           >
-            {spin ?<div className="flex gap-2 justify-center items-center"> <CircularProgress color="white" size={18} /> Wait...</div> : "CONFIRM"}
+            {spin ? (
+              <div className="flex gap-2 justify-center items-center">
+                {" "}
+                <CircularProgress color="white" size={18} /> Wait...
+              </div>
+            ) : (
+              "CONFIRM"
+            )}
           </button>
           <button type="button" onClick={handleClose} className="text-blue-500">
             CANCEL
@@ -47,4 +55,4 @@ const ConfirmModal = ({ open, data, handleClose }) => {
   );
 };
 
-export default ConfirmModal;
+export default DoctorConfirm;

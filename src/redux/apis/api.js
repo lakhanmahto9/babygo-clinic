@@ -210,3 +210,20 @@ export const fetchDoctorApi = () => {
     },
   });
 };
+
+export const updateDoctorApi = (payload) => {
+  console.log(payload)
+  return axios.post(`${BASE_URL}/clinic/update-doctor/${payload.id}`,payload, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+    },
+  });
+};
+
+export const deleteDoctorApi = (payload) => {
+  return axios.delete(`${BASE_URL}/clinic/delete-doctor/${payload}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+    },
+  });
+};
