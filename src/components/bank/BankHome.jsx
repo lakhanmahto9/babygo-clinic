@@ -20,9 +20,9 @@ const BankHome = ({ children }) => {
   return (
     <Layout>
       <div className="w-full relative">
-        <div onClick={gotohome} className={`w-full h-14 sticky top-0  shadow-sm flex justify-start items-center px-4 gap-4  ${isDarkEnabled ? "bg-[#101c44]" : "bg-[#006afe] border-b"}`}>
-          <BackIcon color="#fff" width="24" height="24" />{" "}
-          <p className="text-white font-semibold">Wallet</p>
+        <div onClick={gotohome} className={`w-full h-14 sticky top-0  shadow-sm flex justify-start items-center px-4 gap-4 bg-white  border-b`}>
+          <BackIcon color="#000" width="24" height="24" />{" "}
+          <p className="text-slate-700 font-semibold">Wallet</p>
         </div>
         <div className="w-full p-4 flex flex-col md:flex-row gap-4">
           <div className={`w-full md:w-1/3 h-auto max-h-72 rounded-md border ${isDarkEnabled ? "border-gray-600" : ""}`} style={{background:colors.background,color:colors.text}}>

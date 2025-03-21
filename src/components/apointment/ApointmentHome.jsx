@@ -49,10 +49,10 @@ const ApointmentHome = () => {
   return (
     <Layout>
       <div className="w-full relative">
-        <div className={`h-14 w-full sticky top-0 px-4 border shadow-md flex justify-between items-center ${isDarkEnabled ? "bg-[#101c44] border-gray-600" : "bg-[#006afe]"}`}>
+        <div className={`h-14 w-full sticky top-0 px-4 border-b shadow-sm flex justify-between items-center bg-[#fff]`}>
           <div onClick={gotohome} className="flex gap-4">
-            <BackIcon color="#fff" height="24" width="24" />
-            <p className="text-white font-semibold hidden sm:block">
+            <BackIcon color="#000" height="24" width="24" />
+            <p className="text-slate-800 font-semibold hidden sm:block">
               Appointment
             </p>
           </div>
