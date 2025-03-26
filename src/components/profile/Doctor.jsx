@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Profile from "./Profile";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import { Button, CircularProgress, Menu, MenuItem } from "@mui/material";
 import { useThemeColors } from "../../utils/useThemeColor";
 import { AddIcon, VerticalThreeDotIcon } from "../../assets/icons/Icons";
