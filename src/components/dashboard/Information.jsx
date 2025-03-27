@@ -55,7 +55,7 @@ const Information = () => {
               <p className="text-white text-sm font-semibold">{auth?.wallet}</p>
             </div>
           </div>
-          <p className="text-xs mt-2">Available Balance</p>
+          <p className="text-xs mt-2" style={{color:colors.text}}>Available Balance</p>
         </div>
       </div>
       {/* <hr className="mt-4 border-t-1 border-[#9e78ce]" /> */}
