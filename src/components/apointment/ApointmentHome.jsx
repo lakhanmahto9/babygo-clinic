@@ -25,11 +25,11 @@ const ApointmentHome = () => {
     setOpen(true);
     setId(aptid);
   };
-  const openAcceptModal = (aptid,status) =>{
+  const openAcceptModal = (aptid, status) => {
     setOpenAccept(true);
-    setId(aptid)
-    setStatus(status)
-  }
+    setId(aptid);
+    setStatus(status);
+  };
   const handleClose = () => {
     setOpen(false);
   };
@@ -49,19 +49,24 @@ const ApointmentHome = () => {
   return (
     <Layout>
       <div className="w-full relative">
-        <div className={`h-14 w-full sticky top-0 px-4 border-b shadow-sm flex justify-between items-center bg-[#fff]`}>
-          <div onClick={gotohome} className="flex gap-4">
-            <BackIcon color="#000" height="24" width="24" />
-            <p className="text-slate-800 font-semibold hidden sm:block">
+        <div
+          className={`h-14 w-full sticky top-0 px-4 border-b shadow-sm flex justify-between items-center ${isDarkEnabled ? "border-gray-600" : ""}`}
+          style={{ background: colors.background }}
+        >
+          <div onClick={gotohome} className="flex gap-4 cursor-pointer">
+            <BackIcon color={colors.text} height="24" width="24" />
+            <p className="font-semibold hidden sm:block" style={{color:colors.text}}>
               Appointment
             </p>
           </div>
           <div className="flex justify-center items-center gap-4">
             <select
-              className={`border p-2 rounded-md outline-none  ${isDarkEnabled ? "bg-[#040836] border-gray-600":""}`}
+              className={`border p-2 rounded-md outline-none  ${
+                isDarkEnabled ? "bg-[#040836] border-gray-600" : ""
+              }`}
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              style={{color:colors.text}}
+              style={{ color: colors.text }}
             >
               <option value="">All Status</option>
               <option value="Pending">Pending</option>
@@ -72,7 +77,9 @@ const ApointmentHome = () => {
             <div>
               <input
                 type="date"
-                className={`border p-2 text-slate-400 rounded-md  ${isDarkEnabled ? "border-gray-600 bg-[#040836]" : ""}`}
+                className={`border p-2 text-slate-400 rounded-md  ${
+                  isDarkEnabled ? "border-gray-600 bg-[#040836]" : ""
+                }`}
                 value={selectedDate}
                 onChange={(e) => setSelectedDate(e.target.value)}
                 style={{
@@ -101,7 +108,10 @@ const ApointmentHome = () => {
                       Appointment No :- {item?.apointmentNumber}
                     </p>
                     {item.status !== "Done" && item.status !== "Accept" && (
-                      <div onClick={() => openAcceptModal(item._id,item.status)} className="block md:hidden cursor-pointer">
+                      <div
+                        onClick={() => openAcceptModal(item._id, item.status)}
+                        className="block md:hidden cursor-pointer"
+                      >
                         <VerticalThreeDotIcon
                           color="#000"
                           width="16"
@@ -148,7 +158,10 @@ const ApointmentHome = () => {
                       {moment(item?.apointmentDate).format("MMM, DD-YYYY")}
                     </p>
                     {item.status !== "Done" && item.status !== "Accept" && (
-                      <div onClick={() => openAcceptModal(item._id,item.status)} className="hidden md:block cursor-pointer">
+                      <div
+                        onClick={() => openAcceptModal(item._id, item.status)}
+                        className="hidden md:block cursor-pointer"
+                      >
                         <VerticalThreeDotIcon
                           color="#000"
                           width="16"
@@ -197,7 +210,12 @@ const ApointmentHome = () => {
         )}
       </div>
       <ConfirmModal id={id} open={open} handleClose={handleClose} />
-      <AcceptModal id={id} status={status} open={openAccept} handleClose={closeAccept} />
+      <AcceptModal
+        id={id}
+        status={status}
+        open={openAccept}
+        handleClose={closeAccept}
+      />
     </Layout>
   );
 };

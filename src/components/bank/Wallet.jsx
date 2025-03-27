@@ -9,10 +9,8 @@ import BankInfo from "./selectupiorbank/BankInfo";
 import { FetchBankDetails } from "../../redux/slice/addBankDetailSlice";
 import { FetchUPIDetails } from "../../redux/slice/addUpiDetailSlice";
 import { toast } from "react-toastify";
-// import { WithdrawAmount } from "../../redux/slice/withdrawSlice";
 import { clinicWithdrawAmount } from "../../redux/slice/clinicWithdrawSlice";
 import { CircularProgress } from "@mui/material";
-// import { WithdrawBankAmount } from "../../redux/slice/withdrawBankSlice";
 import { ClinicWithdrawBankAmount } from "../../redux/slice/clinicWithdrawBankSlice";
 import { FetchClinicData } from "../../redux/slice/authSlice";
 
@@ -95,7 +93,7 @@ const Wallet = () => {
         style={{ background: colors.background }}
       >
         <div className="p-4">
-          <p className="text-sm text-slate-500 font-semibold">
+          <p className="text-sm font-semibold" style={{color:colors.text}}>
             Wallet & Withdraw
           </p>
         </div>

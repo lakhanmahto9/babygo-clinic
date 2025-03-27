@@ -13,12 +13,12 @@ const Information = () => {
   const auth = useSelector((state) => state.auth?.user?.data);
   const colors = useThemeColors(isDarkEnabled);
   const navigate = useNavigate();
-  const gotowallet = () =>{
-    navigate("/wallet")
-  }
-  useEffect(()=>{
-     dispatch(FetchClinicData());
-  },[])
+  const gotowallet = () => {
+    navigate("/wallet");
+  };
+  useEffect(() => {
+    dispatch(FetchClinicData());
+  }, []);
   return (
     <div className="w-full mt-1">
       <div className="md:px-2">
@@ -33,8 +33,12 @@ const Information = () => {
             alt=""
             className="w-28 h-28 object-fill rounded-full"
           />
-          <p className={`text-sm ${isDarkEnabled ? "text-[#D3D3D3]" : ""}`}>{auth?.name}</p>
-          <p className={`text-sm ${isDarkEnabled ? "text-[#D3D3D3]" : ""}`}>{auth?.email}</p>
+          <p className={`text-sm ${isDarkEnabled ? "text-[#D3D3D3]" : ""}`}>
+            {auth?.name}
+          </p>
+          <p className={`text-sm ${isDarkEnabled ? "text-[#D3D3D3]" : ""}`}>
+            {auth?.email}
+          </p>
         </div>
       </div>
       <div className="md:p-2 w-full mt-2">
@@ -56,7 +60,9 @@ const Information = () => {
       </div>
       {/* <hr className="mt-4 border-t-1 border-[#9e78ce]" /> */}
 
-      <div className={`mt-4 border  ${isDarkEnabled ? "border-gray-600" : ""}`}></div>
+      <div
+        className={`mt-4 border  ${isDarkEnabled ? "border-gray-600" : ""}`}
+      ></div>
 
       <div className="w-full md:p-2 mb-2">
         <div
@@ -65,18 +71,31 @@ const Information = () => {
           }`}
           style={{ background: colors.thirdCardBg, color: colors.text }}
         >
-          <p className="text-sm font-semibold p-4">Transactin History</p>
-          <hr className={`border-t-1 ${isDarkEnabled ? "border-gray-600" : ""}`} />
+          <div className="p-4 flex justify-between items-center">
+            <p className="text-sm font-semibold">Transaction History</p>
+            <p
+              className="text-xs font-semibold text-blue-500 cursor-pointer hover:underline"
+              onClick={() => navigate('/appointment')}
+            >
+              View All
+            </p>
+          </div>
+          <hr
+            className={`border-t-1 ${isDarkEnabled ? "border-gray-600" : ""}`}
+          />
           <div className="p-4 flex flex-col gap-2 overflow-y-auto max-h-60 scrollbar-hide">
             {apointment.map((item, index) => (
               <div
                 key={index}
-                className={`w-full p-2 rounded-md ${isDarkEnabled ? "bg-[#040836]" : "shadow-md border-gray-200"}`}
+                className={`w-full p-2 rounded-md ${
+                  isDarkEnabled ? "bg-[#040836]" : "shadow-md border-gray-200"
+                }`}
               >
                 <div>
                   <p className="text-xs font-semibold">{item.petOwnerName}</p>
                   <p className="text-xs font-semibold">
-                  <CurrencyRupee sx={{ width: 14, color: colors.text }} />{item.amount}
+                    <CurrencyRupee sx={{ width: 14, color: colors.text }} />
+                    {item.amount}
                   </p>
                 </div>
                 <div className="flex gap-2">

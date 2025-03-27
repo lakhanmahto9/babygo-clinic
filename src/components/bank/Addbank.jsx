@@ -59,8 +59,8 @@ const Addbank = () => {
 
   return (
     <BankHome>
-      <div className={`w-full border rounded-sm p-4 ${isDarkEnabled ? "border-gray-600" :""}`} style={{background:colors.background}}>
-        <p className="font-semibold text-slate-500 mb-4">Manage Bank Details</p>
+      <div className={`w-full border rounded-sm p-4 ${isDarkEnabled ? "border-gray-600" :""}`} style={{background:colors.background,color:colors.text}}>
+        <p className="font-semibold mb-4">Manage Bank Details</p>
 
         {!open ? (
           <div

@@ -31,18 +31,30 @@ const WithdrawalHistory = () => {
   );
   return (
     <BankHome>
-      <div className={`w-full border rounded-md ${isDarkEnabled ? "border-gray-600" : "" }`} style={{background:colors.cardBg,color:colors.text}}>
-        <div className={`w-full h-14 border-b flex justify-between items-center px-4 ${isDarkEnabled ? "border-gray-600" : ""}`}>
-          <p className="text-sm font-semibold text-slate-500">
-            Withdrawal History
-          </p>
+      <div
+        className={`w-full border rounded-md ${
+          isDarkEnabled ? "border-gray-600" : ""
+        }`}
+        style={{ background: colors.cardBg, color: colors.text }}
+      >
+        <div
+          className={`w-full h-14 border-b flex justify-between items-center px-4 ${
+            isDarkEnabled ? "border-gray-600" : ""
+          }`}
+        >
+          <p className="text-sm font-semibold">Withdrawal History</p>
           <div className="flex gap-2 p-1">
             <input
               type="date"
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className={`text-sm border px-2 py-1 rounded-md ${isDarkEnabled ? "border-gray-600" : ""}`}
-              style={{background:colors.primary,colorScheme: isDarkEnabled ? "dark" : "light",}}
+              className={`text-sm border px-2 py-1 rounded-md ${
+                isDarkEnabled ? "border-gray-600" : ""
+              }`}
+              style={{
+                background: colors.primary,
+                colorScheme: isDarkEnabled ? "dark" : "light",
+              }}
             />
           </div>
         </div>
@@ -51,8 +63,10 @@ const WithdrawalHistory = () => {
             filteredUpi.map((item, index) => (
               <div
                 key={index}
-                className={`w-full sm:w-[32%] h-auto border rounded-xl p-2 shadow-md ${isDarkEnabled ? "border-gray-600" : ""}`}
-                style={{background:colors.primary}}
+                className={`w-full sm:w-[32%] h-auto border rounded-xl p-2 shadow-md ${
+                  isDarkEnabled ? "border-gray-600" : ""
+                }`}
+                style={{ background: colors.primary }}
               >
                 <div className="flex justify-between">
                   <p className="text-xs font-semibold">UPI ID:- {item.upi}</p>{" "}
@@ -70,8 +84,10 @@ const WithdrawalHistory = () => {
             filteredBank.map((item, index) => (
               <div
                 key={index}
-                className={`w-full sm:w-[32%] h-auto border rounded-xl p-2 shadow-md ${isDarkEnabled ? "border-gray-600" : ""}`}
-                style={{background:colors.primary}}
+                className={`w-full sm:w-[32%] h-auto border rounded-xl p-2 shadow-md ${
+                  isDarkEnabled ? "border-gray-600" : ""
+                }`}
+                style={{ background: colors.primary }}
               >
                 <div className="flex justify-between">
                   <p className="text-xs font-semibold">
