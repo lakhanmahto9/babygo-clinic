@@ -19,32 +19,36 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
     clinicId: id,
     name: editdoctor.name || "",
     phone: editdoctor.phone || "",
+    phoneHide: editdoctor.phoneHide || false,
     email: editdoctor.email || "",
+    emailHide: editdoctor.emailHide || false,
     registrationNumber: editdoctor.registrationNumber || "",
     zipCode: editdoctor.zipCode || "",
     locality: editdoctor.locality || "",
     address: editdoctor.address || "",
     city: editdoctor.city || "",
     state: editdoctor.state || "",
+    addressHide: editdoctor.addressHide || false,
     degree: editdoctor.degree || "",
     experience: editdoctor.experience || "",
     expertise: editdoctor.expertise || "",
+    expertiseHide: editdoctor.expertiseHide || false,
     schedules:
       editdoctor.schedules?.length > 0
         ? editdoctor.schedules.map((s) => ({
-            doctorInfo: s.doctorInfo || "",
-            selectedDays: s.selectedDays || [],
-            startTime: s.startTime || "",
-            endTime: s.endTime || "",
-          }))
+          doctorInfo: s.doctorInfo || "",
+          selectedDays: s.selectedDays || [],
+          startTime: s.startTime || "",
+          endTime: s.endTime || "",
+        }))
         : [
-            {
-              doctorInfo: "",
-              selectedDays: [],
-              startTime: "",
-              endTime: "",
-            },
-          ],
+          {
+            doctorInfo: "",
+            selectedDays: [],
+            startTime: "",
+            endTime: "",
+          },
+        ],
   });
   const days = [
     "Monday",
@@ -107,6 +111,14 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
     }));
   };
 
+  const handleToggle = (field) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
+
+
   // Handle Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -126,7 +138,7 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
       setSpin(false);
     }
   };
-  const handleClose = ()=>{
+  const handleClose = () => {
     setOpen(false);
     setSpin(false);
   }
@@ -148,7 +160,7 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
               value={formData.name}
               onChange={handleChange}
               className={`h-12 px-4 w-full border-2 rounded-md border-slate-500  ${isDarkEnabled ? "" : "outline-blue-500"}`}
-              style={{background:colors.secondbackground}}
+              style={{ background: colors.secondbackground }}
             />
           </div>
           <div className="w-full sm:w-1/2 relative">
@@ -160,10 +172,13 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
               value={formData.phone}
               onChange={handleChange}
               className={`h-12 pl-2 pr-12 w-full border-2 rounded-md border-slate-500 ${isDarkEnabled ? "" : "outline-blue-500"}`}
-              style={{background:colors.secondbackground}}
+              style={{ background: colors.secondbackground }}
             />
-            <div className="absolute bottom-0 right-0 text-xs rounded-r-md bg-blue-500 h-12 flex justify-center items-center px-2 text-white">
-              Visible
+            <div
+              className="absolute bottom-0 right-0 text-xs rounded-r-md bg-blue-500 h-12 flex justify-center items-center px-2 text-white cursor-pointer"
+              onClick={() => handleToggle('phoneHide')}
+            >
+              {formData.phoneHide ? "Visible" : "Hide"}
             </div>
           </div>
         </div>
@@ -179,10 +194,13 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
               value={formData.email}
               onChange={handleChange}
               className={`h-12 px-4 w-full border-2 rounded-md border-slate-500  ${isDarkEnabled ? "" : "outline-blue-500"}`}
-              style={{background:colors.secondbackground}}
+              style={{ background: colors.secondbackground }}
             />
-            <div className="absolute bottom-0 right-0 text-xs rounded-r-md bg-blue-500 h-12 flex justify-center items-center px-2 text-white">
-              Visible
+            <div
+              className="absolute bottom-0 right-0 text-xs rounded-r-md bg-blue-500 h-12 flex justify-center items-center px-2 text-white cursor-pointer"
+              onClick={() => handleToggle('emailHide')}
+            >
+              {formData.emailHide ? "Visible" : "Hide"}
             </div>
           </div>
           <div className="w-full sm:w-1/2 relative">
@@ -195,14 +213,14 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
               value={formData.registrationNumber}
               onChange={handleChange}
               className={`h-12 px-4 w-full border-2 rounded-md border-slate-500  ${isDarkEnabled ? "" : "outline-blue-500"}`}
-              style={{background:colors.secondbackground}}
+              style={{ background: colors.secondbackground }}
             />
           </div>
         </div>
         <div className="flex gap-2">
           <p className="font-bold">Address Information</p>
-          <div className="w-auto bg-slate-400 rounded-lg px-2 text-white cursor-pointer">
-            <small>Hide</small>
+          <div className="w-auto bg-slate-400 rounded-lg px-2 text-white cursor-pointer" onClick={() => handleToggle('addressHide')}>
+            <small> {formData.addressHide ? "Visible" : "Hide"}</small>
           </div>
         </div>
         <div className="flex flex-col sm:flex-row w-full gap-4">
@@ -216,7 +234,7 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
               value={formData.zipCode}
               onChange={handleChange}
               className={`h-12 px-4 w-full border-2 rounded-md border-slate-500  ${isDarkEnabled ? "" : "outline-blue-500"}`}
-              style={{background:colors.secondbackground}}
+              style={{ background: colors.secondbackground }}
             />
           </div>
           <div className="w-full sm:w-1/2 relative">
@@ -229,7 +247,7 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
               value={formData.locality}
               onChange={handleChange}
               className={`h-12 pl-2 pr-12 w-full border-2 rounded-md border-slate-500 ${isDarkEnabled ? "" : "outline-blue-500"}`}
-              style={{background:colors.secondbackground}}
+              style={{ background: colors.secondbackground }}
             />
           </div>
         </div>
@@ -245,7 +263,7 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
             value={formData.address}
             onChange={handleChange}
             className={`p-4 w-full border-2 rounded-md border-slate-500  ${isDarkEnabled ? "" : "outline-blue-500"}`}
-            style={{background:colors.secondbackground}}
+            style={{ background: colors.secondbackground }}
           />
         </div>
         <div className="flex flex-col sm:flex-row w-full gap-4">
@@ -259,7 +277,7 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
               value={formData.city}
               onChange={handleChange}
               className={`p-4 w-full border-2 rounded-md border-slate-500  ${isDarkEnabled ? "" : "outline-blue-500"}`}
-              style={{background:colors.secondbackground}}
+              style={{ background: colors.secondbackground }}
             />
           </div>
           <div className="w-full sm:w-1/2 relative">
@@ -272,7 +290,7 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
               value={formData.state}
               onChange={handleChange}
               className={`h-12 pl-2 pr-12 w-full border-2 rounded-md border-slate-500 ${isDarkEnabled ? "" : "outline-blue-500"}`}
-              style={{background:colors.secondbackground}}
+              style={{ background: colors.secondbackground }}
             />
           </div>
         </div>
@@ -286,7 +304,7 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
             value={formData.degree}
             onChange={handleChange}
             className={`p-4 w-full border-2 rounded-md border-slate-500  ${isDarkEnabled ? "" : "outline-blue-500"}`}
-            style={{background:colors.secondbackground}}
+            style={{ background: colors.secondbackground }}
           />
         </div>
         <div className="flex flex-col sm:flex-row w-full gap-4">
@@ -301,7 +319,7 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
               value={formData.experience}
               onChange={handleChange}
               className={`h-12 px-4 w-full border-2 rounded-md border-slate-500  ${isDarkEnabled ? "" : "outline-blue-500"}`}
-              style={{background:colors.secondbackground}}
+              style={{ background: colors.secondbackground }}
             />
           </div>
           <div className="w-full sm:w-1/2 relative z-0">
@@ -315,10 +333,13 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
               value={formData.expertise}
               onChange={handleChange}
               className={`h-12 pl-2 pr-12 w-full border-2 rounded-md border-slate-500 ${isDarkEnabled ? "" : "outline-blue-500"}`}
-              style={{background:colors.secondbackground}}
+              style={{ background: colors.secondbackground }}
             />
-            <div className="absolute bottom-0 right-0 text-xs rounded-r-md bg-blue-500 h-12 flex justify-center items-center px-2 text-white">
-              Hide
+            <div
+              className="absolute bottom-0 right-0 text-xs rounded-r-md bg-blue-500 h-12 flex justify-center items-center px-2 text-white cursor-pointer"
+              onClick={() => handleToggle('expertiseHide')}
+            >
+              {formData.expertiseHide ? "Visible" : "Hide"}
             </div>
           </div>
         </div>
@@ -335,8 +356,8 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
                 value={schedule.doctorInfo}
                 onChange={(e) => handleScheduleChange(e, index, "doctorInfo")}
                 className={`p-4 w-full border rounded-md  ${isDarkEnabled ? "" : "outline-blue-500"}`}
-                style={{background:colors.secondbackground}}
-                
+                style={{ background: colors.secondbackground }}
+
               />
             </div>
             <div className="flex flex-col sm:flex-row w-full gap-4">
@@ -345,7 +366,7 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
                 <div
                   className={`w-full px-4 py-2 border rounded-md cursor-pointer ${isDarkEnabled ? "border-gray-600" : ""}`}
                   onClick={() => setIsOpen(isOpen === index ? null : index)}
-                  style={{background:colors.secondbackground}}
+                  style={{ background: colors.secondbackground }}
                 >
                   {schedule.selectedDays.length > 0
                     ? schedule.selectedDays.join(", ")
@@ -353,7 +374,7 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
                 </div>
 
                 {isOpen === index && (
-                  <div className={`border rounded-md shadow-lg z-10 ${isDarkEnabled ? "border-gray-600" : ""}`} style={{background:colors.secondbackground}} >
+                  <div className={`border rounded-md shadow-lg z-10 ${isDarkEnabled ? "border-gray-600" : ""}`} style={{ background: colors.secondbackground }} >
                     {days.map((day) => (
                       <div
                         key={day}
@@ -386,7 +407,7 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
                       handleScheduleChange(e, index, "startTime")
                     }
                     className={`h-10 w-full border rounded-md  ${isDarkEnabled ? "border-gray-600" : "outline-blue-500"}`}
-                    style={{background:colors.secondbackground}}
+                    style={{ background: colors.secondbackground }}
                   />
                 </div>
                 <div className="w-full">
@@ -397,7 +418,7 @@ const EditDoctor = ({ id, editdoctor, closeDoctorForm }) => {
                     value={schedule.endTime}
                     onChange={(e) => handleScheduleChange(e, index, "endTime")}
                     className={`h-10 w-full border rounded-md  ${isDarkEnabled ? "border-gray-600" : "outline-blue-500"}`}
-                    style={{background:colors.secondbackground}}
+                    style={{ background: colors.secondbackground }}
                   />
                 </div>
               </div>
